@@ -16,7 +16,7 @@ public class Night {
 
     // Variável que armazena o tempo decorrido, em segundos.
     private int timeElapsedSeconds = 0;
-    private final int totalNightDurationSeconds = 5; // Duração de 5 segundos para teste!
+    private final int totalNightDurationSeconds = 10; // Duração de 10 segundos para teste!
 
     // Referência ao motor para poder chamar changeState (Victory/GameOver)
     private final GameEngine engine;
@@ -41,9 +41,9 @@ public class Night {
         gameTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                timeElapsedSeconds++;
+               /* timeElapsedSeconds++;
                 System.out.println("RELÓGIO: " + timeElapsedSeconds + "s / " + totalNightDurationSeconds + "s");
-
+               */
                 // Verifica a condição de vitória
                 if (timeElapsedSeconds >= totalNightDurationSeconds) {
                     endNight(true); // Fim da noite (Vitória)
