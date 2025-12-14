@@ -12,6 +12,7 @@ public enum GameState {
     CREDITS_SCREEN,
 
     // Estados de Jogo
+    NEW_GAME,
     LOADING_NIGHT, // Sua "tela de carregamento"
     NIGHT_1,
     NIGHT_2,
