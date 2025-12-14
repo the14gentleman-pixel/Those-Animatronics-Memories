@@ -2,12 +2,21 @@ package TAM;
 
 @SuppressWarnings("all")
 
-public class Animatronic {
-    private int position; //in what position is the animatronic are?
-    private boolean active; //it is active or not
-    private int agressivity; //level of the agressivity of the animatronic
-    private boolean attacking; //it is attacking the player or not
-    private boolean counterized; //the animatronic got counterized by the player?
+public abstract class Animatronic {
+    private String name; // Nome do animatrônico (FredBear, Springbonnie)
+    private int position; // Posição (usaremos int por enquanto, mas logo trocamos para String/enum)
+    private boolean active = false; // Inicialmente desativado
+    private int agressivity = 0; // Nível de agressividade
+    private boolean attacking = false;
+    private boolean counterized = false;
+
+
+    // Construtor obrigatório para todas as subclasses
+    public Animatronic(String name, int initialPosition) {
+        this.name = name;
+        this.position = initialPosition;
+        System.out.println(name + " foi inicializado na posição " + initialPosition);
+    }
 
 
     public int getPosition() {

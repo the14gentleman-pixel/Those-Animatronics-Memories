@@ -29,5 +29,4 @@ public enum GameState {
     MINIGAME_6,
     MINIGAME_7,
     VICTORY_SCREEN
-    // ... adicione mais noites e estados conforme necessário
 }
