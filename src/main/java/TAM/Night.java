@@ -6,82 +6,77 @@ import java.util.TimerTask;
 @SuppressWarnings("all")
 public class Night {
 
-    private final GameState nightIdentifier; // Ex: NIGHT_1, NIGHT_2
-    private final int difficultyLevelBonnie;
-    private final int difficultyLevelFreddy;
-    private boolean isCompleted = false; // Se o jogador completou (6:00 AM)
+    // Constantes de Jogo (Configuração da Noite)
+    private final int SPRING_BONNIE_DIFFICULTY; // 1-20
+    private final int FREDBEAR_DIFFICULTY;      // 1-20
 
-    // Timer para o relógio do jogo
-    private Timer gameTimer;
-
-    // Variável que armazena o tempo decorrido, em segundos.
+    // Lógica de Tempo (8 min e 30 seg total / 85 seg por hora do jogo)
+    private final int SECONDS_PER_GAME_HOUR = 85;
+    private final int totalNightDurationSeconds = 510; // 6 * 85 = 510 segundos
     private int timeElapsedSeconds = 0;
-    private final int totalNightDurationSeconds = 180; // Duração de 3 minutos para teste!
 
-    // Referência ao motor para poder chamar changeState (Victory/GameOver)
-    private final GameEngine engine;
+    private Timer timer;
+    private GameEngine gameEngine;
 
-    public Night(GameEngine engine, GameState identifier, int bonnieDiff, int freddyDiff) {
-        this.engine = engine;
-        this.nightIdentifier = identifier;
-        this.difficultyLevelBonnie = bonnieDiff;
-        this.difficultyLevelFreddy = freddyDiff;
-        System.out.println("LOG [Night]: " + identifier + " started. Difficult B/F: " + bonnieDiff + "/" + freddyDiff);
+    public Night(int springBonnieDiff, int fredbearDiff, GameEngine engine) {
+        this.SPRING_BONNIE_DIFFICULTY = springBonnieDiff;
+        this.FREDBEAR_DIFFICULTY = fredbearDiff;
+        this.gameEngine = engine;
+        System.out.println("LOG [Night]: " + gameEngine.getCurrentState().name() +
+                " started. Difficult B/F: " + springBonnieDiff + "/" + fredbearDiff);
     }
 
     /**
-     * Inicia o timer da noite.
+     * Inicia o loop de jogo (TimerTask) que roda a cada segundo.
      */
     public void startNight() {
-        this.timeElapsedSeconds = 0;
-        this.isCompleted = false;
-
-        // Timer que executa a cada 1 segundo (simula o tempo real)
-        gameTimer = new Timer();
-        gameTimer.scheduleAtFixedRate(new TimerTask() {
+        this.timer = new Timer(true); // true = daemon thread (para fechar com o programa)
+        this.timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
+                // APENAS LÓGICA DE CÁLCULO E ATUALIZAÇÃO DE ESTADO. NENHUM print AQUI.
                 timeElapsedSeconds++;
-                /*System.out.println("RELÓGIO: " + timeElapsedSeconds + "s / " + totalNightDurationSeconds + "s");*/
 
-                // Verifica a condição de vitória
-                if (timeElapsedSeconds == totalNightDurationSeconds) {
-                    endNight(true); // Fim da noite (Vitória)
+                // 1. CHECAGEM DE VITÓRIA (6:00 AM)
+                if (timeElapsedSeconds >= totalNightDurationSeconds) {
+                    timer.cancel(); // Para o TimerTask
+                    gameEngine.endNight(true); // Chamada para vitória
                     return;
                 }
 
-                // *** Aqui, no futuro, você chamará a lógica de Animatronic.move() ***
-                // Ex: engine.getAnimatronicManager().updateAI(difficultyLevelBonnie, difficultyLevelFreddy);
+                // 2. LÓGICA DE SANIDADE E AÇÕES DO JOGADOR
+                // ESTE SERÁ O PRÓXIMO PASSO DE IMPLEMENTAÇÃO.
             }
-        }, 1000, 1000); // 1000ms de delay inicial, 1000ms de repetição
+        }, 1000, 1000); // Executa a cada 1000ms (1 segundo)
+    }
+
+    // ----------------------------------------------------
+    // GETTERS
+    // ----------------------------------------------------
+
+    public int getTimeElapsedSeconds() {
+        return timeElapsedSeconds;
     }
 
     /**
-     * Termina a noite e notifica o GameEngine.
-     * @param victory true se o jogador venceu (6:00 AM), false se foi Game Over.
+     * Retorna o tempo formatado (simulando 12:00 AM -> 6:00 AM).
      */
-    public void endNight(boolean victory) {
-        if (gameTimer != null) {
-            gameTimer.cancel(); // Para o timer para evitar que a noite continue
+    public String getFormattedTime() {
+        if (timeElapsedSeconds >= totalNightDurationSeconds) {
+            return "6:00 AM (VICTORY)";
         }
-        this.isCompleted = victory;
 
-        if (victory) {
-            engine.changeState(GameState.VICTORY_SCREEN);
-        } else {
-            engine.changeState(GameState.GAME_OVER);
+        int gameHour = timeElapsedSeconds / SECONDS_PER_GAME_HOUR;
+        int displayedHour = (12 + gameHour) % 12;
+        if (displayedHour == 0) {
+            displayedHour = 12;
         }
-    }
 
-    // Métodos para o motor poder verificar o estado
-    public int getDifficultyLevelBonnie() { return difficultyLevelBonnie; }
-    public int getDifficultyLevelFreddy() { return difficultyLevelFreddy; }
-    public GameState getNightIdentifier() { return nightIdentifier; }
-    public boolean isCompleted() { return isCompleted; }
+        // Simulação de minutos FNaF: (60 minutos do jogo / 85 segundos reais)
+        int secondsIntoHour = timeElapsedSeconds % SECONDS_PER_GAME_HOUR;
+        int gameMinutes = (secondsIntoHour * 60) / SECONDS_PER_GAME_HOUR;
+        String formattedMinutes = String.format("%02d", gameMinutes);
 
-    // Metodo de teste: Chamado para simular o jumpscare
-    public void triggerGameOver() {
-        System.out.println("JUMPSCARE! GAME OVER.");
-        endNight(false);
+        return displayedHour + ":" + formattedMinutes + " AM";
     }
 }
