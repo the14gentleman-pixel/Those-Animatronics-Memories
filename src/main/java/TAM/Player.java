@@ -1,151 +1,121 @@
 package TAM;
 
 @SuppressWarnings("all")
+
 public class Player {
+    private boolean ongame; //if it is on the game or menu
+    private boolean state;//alive or dead
+    private int position; //it its on the door, table, cameras
+    private boolean checkcam; //it's on or off the cameras
+    private boolean holdindoor; //if it is holdin the door against Springbonnie
+    private boolean undertable; //if it is under the table against FredBear
+    private int sanity; //see how is the sanity of the player
 
-    // ----------------------------------------------------
-    // ATTRIBUTES (Sanity and State)
-    // ----------------------------------------------------
-    private int sanity = 100; // Sanidade inicial (100% - Seção 6)
-    private final int MAX_SANITY = 100;
 
-    private OfficeView currentView = OfficeView.FRONT_VIEW; // Começa olhando para frente
-
-    // Estados interativos.
-    private boolean isLightOn = true; // Luz da sala (Toggle)
-    private boolean isHoldingDoor = false; // Porta lateral segurada (Seção 4)
-    private boolean isCameraActive = false; // Monitor de câmeras ativo
-    private boolean isPhotoActive = false; // Olhando para a foto da filha
-
-    // ----------------------------------------------------
-    // CONSTRUCTOR
-    // ----------------------------------------------------
-    public Player() {
-        // Inicialização padrão
+    public Player(boolean ongame, boolean checkcam, boolean state, boolean holdindoor, boolean undertable, int sanity) {
+        this.ongame = false;
+        this.checkcam = false;
+        this.state = true;
+        this.holdindoor = false;
+        this.undertable = false;
+        this.sanity = 100;
     }
 
-    // ----------------------------------------------------
-    // ACTIONS AND VIEW CONTROL
-    // ----------------------------------------------------
 
-    /**
-     * Changes the player's perspective in the office.
-     */
-    public void changeView(OfficeView newView) {
-        // Se a câmera estiver ativa, desliga-a antes de mudar a visão
-        if (this.isCameraActive) {
-            toggleCameras();
-        }
-
-        // Se sair de debaixo da mesa, desativa o estado de esconder.
-        if (this.currentView == OfficeView.UNDER_DESK && newView != OfficeView.UNDER_DESK) {
-            System.out.println("ACTION: Leaving hiding spot.");
-        }
-
-        this.currentView = newView;
-        System.out.println("VIEW: Changing to " + newView.name());
+    public int getPosition() {
+        return position;
     }
 
-    /**
-     * Toggles the camera monitor.
-     */
-    public void toggleCameras() {
-        // Não pode usar câmeras se estiver escondido
-        if (currentView == OfficeView.UNDER_DESK) {
-            System.out.println("PLAYER: Cannot use cameras while hiding.");
-            return;
-        }
-
-        this.isCameraActive = !this.isCameraActive;
-
-        if (this.isCameraActive) {
-            this.currentView = OfficeView.CAMERA_MONITOR;
-            System.out.println("ACTION: Camera monitor ON.");
-        } else {
-            // Volta para a vista frontal ao desligar
-            this.currentView = OfficeView.FRONT_VIEW;
-            System.out.println("ACTION: Camera monitor OFF.");
-        }
+    public void setPosition(int position) {
+        this.position = position;
     }
 
-    /**
-     * Toggles the office light.
-     */
-    public void toggleLight(boolean turnOn) {
-        this.isLightOn = turnOn;
-        System.out.println("ACTION: Office Light is " + (turnOn ? "ON" : "OFF") + ".");
+    public boolean isOngame() {
+        return ongame;
     }
 
-    /**
-     * Toggles the hiding state.
-     */
-    public void toggleHide(boolean hide) {
-        // Se a câmera estiver ativa, primeiro desliga
-        if (this.isCameraActive) {
-            toggleCameras();
-        }
-
-        if (hide) {
-            this.currentView = OfficeView.UNDER_DESK;
-            System.out.println("ACTION: Hiding under the desk.");
-        } else {
-            this.currentView = OfficeView.FRONT_VIEW;
-            System.out.println("ACTION: Leaving hiding spot.");
-        }
+    public void setOngame(boolean ongame) {
+        this.ongame = ongame;
     }
 
-    /**
-     * Toggles holding the left door.
-     */
-    public void holdDoor(boolean hold) {
-        this.isHoldingDoor = hold;
-        System.out.println("ACTION: Left Door is being " + (hold ? "HELD." : "RELEASED.") + ".");
+    public boolean isState() {
+        return state;
     }
 
-    /**
-     * Toggles looking at the daughter's photo.
-     */
-    public void lookAtPhoto(boolean look) {
-        this.isPhotoActive = look;
-        System.out.println("ACTION: Looking at photo: " + (look ? "RECOVERING SANITY." : "STOPPED.") + ".");
+    public void setState(boolean state) {
+        this.state = state;
     }
 
-    // ----------------------------------------------------
-    // SANITY CONTROL (Seção 6 e 7)
-    // ----------------------------------------------------
-
-    /**
-     * Alters sanity (positive for gain, negative for loss)
-     */
-    public void alterSanity(int amount) {
-        int newSanity = this.sanity + amount;
-
-        if (newSanity > MAX_SANITY) {
-            newSanity = MAX_SANITY;
-        } else if (newSanity < 0) {
-            newSanity = 0;
-        }
-
-        if (newSanity != this.sanity) {
-            this.sanity = newSanity;
-            System.out.println("SANITY: " + (amount > 0 ? "+" : "") + amount + " -> " + this.sanity + "%");
-        }
-
-        // CRÍTICO: Checagem de Colapso Mental
-        if (this.sanity <= 0) {
-            System.out.println("SANITY ALERT: MENTAL COLLAPSE IMMINENT (Sanity Zero!)");
-            // A lógica de Game Over será ativada pelo GameEngine.
-        }
+    public boolean isHoldindoor() {
+        return holdindoor;
     }
 
-    // ----------------------------------------------------
-    // GETTERS
-    // ----------------------------------------------------
+    public void setHoldindoor(boolean holdindoor) {
+        this.holdindoor = holdindoor;
+    }
 
-    public int getSanity() { return sanity; }
-    public OfficeView getCurrentView() { return currentView; }
-    public boolean isLightOn() { return isLightOn; }
-    public boolean isHoldingDoor() { return isHoldingDoor; }
-    public boolean isCameraActive() { return isCameraActive; }
-    public boolean isPhotoActive() { return isPhotoActive; }
+    public boolean isCheckcam() {
+        return checkcam;
+    }
+
+    public void setCheckcam(boolean checkcam) {
+        this.checkcam = checkcam;
+    }
+
+    public boolean isUndertable() {
+        return undertable;
+    }
+
+    public void setUndertable(boolean undertable) {
+        this.undertable = undertable;
+    }
+
+    public int getSanity() {
+        return sanity;
+    }
+
+    public void setSanity(int sanity) {
+        this.sanity = sanity;
+    }
+
+
+    public void opencam() {
+        System.out.println("opening cameras");
+    }
+
+    public void selectcam() {
+        System.out.println("selecting camera");
+    }
+
+    public void closecam(){
+        System.out.println("closing cameras");
+    }
+
+    public void gotodoor() {
+        System.out.println("going to the door");
+    }
+
+    public void holdoor() {
+        System.out.println("holding to the door");
+    }
+
+    public void dropdoor() {
+        System.out.println("dropping to the door");
+    }
+
+    public void back(){
+        System.out.println("Going back");
+    }
+
+    public void gototable() {
+        System.out.println("going to the table");
+    }
+
+    public void getdown() {
+        System.out.println("getting down");
+    }
+
+    public void getup() {
+        System.out.println("leaving under the table");
+    }
 }
