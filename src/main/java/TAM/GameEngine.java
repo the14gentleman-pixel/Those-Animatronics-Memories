@@ -20,13 +20,13 @@ public class GameEngine {
 
     public void changeState(GameState newState) {
         // É importante manter esta linha para saber o que está acontecendo!
-        System.out.println("LOG: Transicao de estado: " + this.currentState + " -> " + newState);
+        System.out.println("LOG: Changing state: " + this.currentState + " -> " + newState);
 
         switch (newState) {
 
             case NEW_GAME:
-                changeState(GameState.LOADING_NIGHT);
                 this.currenteNight = GameState.NIGHT_1;
+                changeState(GameState.LOADING_NIGHT);
                 break;
 
             case LOADING_NIGHT:
@@ -42,13 +42,13 @@ public class GameEngine {
                 return; // Usar 'return' aqui impede que o 'this.currentState = newState' no final seja executado.
 
             case CONTINUE_GAME:
-                System.out.println("LOG: Tentando carregar jogo salvo...");
+                System.out.println("LOG: Trying load the save...");
                 changeState(GameState.LOADING_NIGHT);
                 break;
 
             case NIGHT_1:
                 this.currenteNight = GameState.NIGHT_1;
-                System.out.println("\nIniciando Noite 1. Bem-vindo ao Escritorio.");
+                System.out.println("\nNight 1 Started");
                 // CRIA E INICIA A NOITE
                 // Dificuldade (Bonnie/Freddy)
                 activeNight = new Night(this, GameState.NIGHT_1, 1, 1);
@@ -57,7 +57,7 @@ public class GameEngine {
 
             case NIGHT_2:
                 this.currenteNight = GameState.NIGHT_2;
-                System.out.println("\nIniciando Noite 2. Bem-vindo ao Escritorio.");
+                System.out.println("\nNight 2 Started");
                 // CRIA E INICIA A NOITE
                 // Dificuldade (Bonnie/Freddy)
                 activeNight = new Night(this, GameState.NIGHT_2, 3, 2);
@@ -66,7 +66,7 @@ public class GameEngine {
 
             case NIGHT_3:
                 this.currenteNight = GameState.NIGHT_3;
-                System.out.println("\nIniciando Noite 3. Bem-vindo ao Escritorio.");
+                System.out.println("\nNight 3 Started");
                 // CRIA E INICIA A NOITE
                 // Dificuldade (Bonnie/Freddy)
                 activeNight = new Night(this, GameState.NIGHT_3, 6, 4);
@@ -75,7 +75,7 @@ public class GameEngine {
 
             case NIGHT_4:
                 this.currenteNight = GameState.NIGHT_4;
-                System.out.println("\nIniciando Noite 4. Bem-vindo ao Escritorio.");
+                System.out.println("\nNight 4 Started");
                 // CRIA E INICIA A NOITE
                 // Dificuldade (Bonnie/Freddy)
                 activeNight = new Night(this, GameState.NIGHT_4, 9, 8);
@@ -84,7 +84,7 @@ public class GameEngine {
 
             case NIGHT_5:
                 this.currenteNight = GameState.NIGHT_5;
-                System.out.println("\nIniciando Noite 5. Bem-vindo ao Escritorio.");
+                System.out.println("\nNight 5 Started");
                 // CRIA E INICIA A NOITE
                 // Dificuldade (Bonnie/Freddy)
                 activeNight = new Night(this, GameState.NIGHT_5, 13, 12);
@@ -93,7 +93,7 @@ public class GameEngine {
 
             case NIGHT_6:
                 this.currenteNight = GameState.NIGHT_6;
-                System.out.println("\nIniciando Noite 6. Bem-vindo ao Escritorio.");
+                System.out.println("\nNight 6 Started");
                 // CRIA E INICIA A NOITE
                 // Dificuldade (Bonnie/Freddy)
                 activeNight = new Night(this, GameState.NIGHT_6, 15, 13);
@@ -101,7 +101,7 @@ public class GameEngine {
                 break;
 
             case NIGHT_7:
-                System.out.println("\nIniciando Noite 7. Bem-vindo ao Escritorio.");
+                System.out.println("\nNight 7 Started");
                 // CRIA E INICIA A NOITE
                 // Dificuldade (Bonnie/Freddy)
                 activeNight = new Night(this, GameState.NIGHT_7, 17, 15);
@@ -110,14 +110,21 @@ public class GameEngine {
 
             case VICTORY_SCREEN:
                 System.out.println("\n###############################");
-                System.out.println("##    PARABÉNS! 6:00 AM!   ##");
+                System.out.println("##    HORRAY! 6:00 AM!   ##");
                 System.out.println("###############################");
 
                 // 1. Simula salvamento (define a próxima noite como a nova noite atual)
                 GameState nextNight = getNextNight();
-                this.currenteNight = nextNight;
 
-                System.out.println("\nProgresso salvo. Próxima Noite: " + nextNight);
+                // CRÍTICO: SOMENTE atualizamos o currenteNight SE A NOITE NÃO FOR A ÚLTIMA.
+                if (nextNight != GameState.MAIN_MENU) {
+                    this.currenteNight = nextNight;
+                    System.out.println("\nSaved progress. Next night: " + nextNight);
+                } else {
+                    // SE FOR O FIM DO JOGO, MANTEMOS O VALOR DA ÚLTIMA NOITE VENCIDA (NIGHT_7).
+                    // currentNight continua sendo NIGHT_7 (ou a última noite que foi setada).
+                    System.out.println("\nGame completed. Progress saved on: " + this.currenteNight);
+                }
 
                 // 2. Pausa para o jogador ver a tela
                 try {
@@ -127,20 +134,22 @@ public class GameEngine {
                 }
 
                 // 3. DECISÃO GENÉRICA: Chama o Minigame correspondente à próxima noite.
-                if (nextNight == GameState.VICTORY_SCREEN) {
-                    // Significa que vencemos a NIGHT_7: Fim do Jogo.
-                    changeState(GameState.MAIN_MENU);
+
+                // CRÍTICO: Se a próxima noite é MAIN_MENU, o jogo terminou!
+                if (nextNight == GameState.MAIN_MENU) {
+                    System.out.println("\nEND GAME: All nights completed!");
+                    changeState(GameState.MAIN_MENU); // Volta para o menu principal
                 } else {
                     // Se não for o fim do jogo, chame o Minigame
                     GameState minigameToLoad = mapNightToMinigame(nextNight);
-                    System.out.println("\nCarregando Minigame: " + minigameToLoad);
+                    System.out.println("\nLoading minigame: " + minigameToLoad);
                     changeState(minigameToLoad);
                 }
                 return;
 
             case GAME_OVER:
                 System.out.println("\n===============================");
-                System.out.println("==     GAME OVER - FIM!      ==");
+                System.out.println("==     GAME OVER - END!      ==");
                 System.out.println("===============================");
 
                 // A noite atual (currenteNight) já está salva.
@@ -152,10 +161,10 @@ public class GameEngine {
                     Thread.currentThread().interrupt();
                 }
 
-                System.out.println("\nVoltando para a última noite: " + this.currenteNight);
+                System.out.println("\nBacking to Menu");
 
                 // 2. Força o início da mesma noite
-                changeState(GameState.LOADING_NIGHT);
+                changeState(GameState.MAIN_MENU);
                 return;
 
             case CONFIGURATIONS:
@@ -209,11 +218,11 @@ public class GameEngine {
     }
 
     private void handleMinigameScreen(GameState minigameIdentifier) {
-        System.out.println("\n--- INÍCIO DO MINIGAME ---");
-        System.out.println("\nCARREGANDO: " + minigameIdentifier);
+        System.out.println("\n--- START MINIGAME ---");
+        System.out.println("\nLOADING: " + minigameIdentifier);
 
         // Simulação do conteúdo do Minigame
-        System.out.println("> Esta é a cena da memória. (Imagine gráficos pixelizados aqui)");
+        System.out.println("> This is just a minigame {need replace for a real one}");
 
         // Pausa para o jogador ler
         try {
@@ -222,13 +231,13 @@ public class GameEngine {
             Thread.currentThread().interrupt();
         }
 
-        System.out.println("Pressione [ENTER] para completar a memória e continuar o jogo...");
+        System.out.println("Press [ENTER] to complet the minigame and proceed with the game...");
 
         // Espera o ENTER do usuário
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine(); // Apenas espera a linha (o ENTER)
 
-        System.out.println("\nMemória liberada. Avançando para a próxima noite.");
+        System.out.println("\nMinigame passed, going to the next night.");
 
         // CRÍTICO: Avança para a próxima noite, que já está salva em currenteNight.
         // Se viemos do VICTORY_SCREEN, currenteNight já está setada para NIGHT_2, NIGHT_3, etc.
@@ -239,14 +248,14 @@ public class GameEngine {
         System.out.println("\n--- " + screenName + " ---");
         // Conteúdo fictício da tela
         if (screenName.contains("CREDITS")) {
-            System.out.println("Criador: The14Gentleman Pixel");
+            System.out.println("Creator: The14Gentleman Pixel");
             System.out.println("Motor: Java POO Console Engine");
         } else if (screenName.contains("CONFIGURATIONS")) {
-            System.out.println("Som: Alto");
-            System.out.println("Brilho: 50%");
+            System.out.println("Sound: Hight");
+            System.out.println("Screen Brightness: 50%");
         }
         System.out.println("-------------------------");
-        System.out.println("TECLE 'X' ou 'x' PARA VOLTAR AO MENU PRINCIPAL");
+        System.out.println("PRESS 'X' ou 'x' TO GET BACK AT THE MAIN MENU");
 
         Scanner screenScanner = new Scanner(System.in);
         String input;
@@ -259,7 +268,7 @@ public class GameEngine {
         } while (!input.equalsIgnoreCase("x"));
 
         // Se o loop terminou, o usuário digitou 'X' ou 'x'
-        System.out.println("Voltando ao menu...");
+        System.out.println("Going to the menu...");
         changeState(GameState.MAIN_MENU);
         // Não precisamos de return aqui, pois a chamada para changeState(MAIN_MENU)
         // será a última ação antes que o metodo changeState principal atualize o currentState.

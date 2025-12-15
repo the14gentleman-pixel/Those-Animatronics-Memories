@@ -26,7 +26,7 @@ public class Night {
         this.nightIdentifier = identifier;
         this.difficultyLevelBonnie = bonnieDiff;
         this.difficultyLevelFreddy = freddyDiff;
-        System.out.println("LOG [Night]: " + identifier + " iniciada. Dificuldade B/F: " + bonnieDiff + "/" + freddyDiff);
+        System.out.println("LOG [Night]: " + identifier + " started. Difficult B/F: " + bonnieDiff + "/" + freddyDiff);
     }
 
     /**
@@ -81,7 +81,7 @@ public class Night {
 
     // Metodo de teste: Chamado para simular o jumpscare
     public void triggerGameOver() {
-        System.out.println("JUMPSCARE! Fim de jogo forçado.");
+        System.out.println("JUMPSCARE! GAME OVER.");
         endNight(false);
     }
 }
