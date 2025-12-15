@@ -16,7 +16,7 @@ public class Night {
 
     // Variável que armazena o tempo decorrido, em segundos.
     private int timeElapsedSeconds = 0;
-    private final int totalNightDurationSeconds = 180; // Duração de 3 minutos para teste!
+    private final int totalNightDurationSeconds = 3; // Duração de 3 minutos para teste!
 
     // Referência ao motor para poder chamar changeState (Victory/GameOver)
     private final GameEngine engine;
