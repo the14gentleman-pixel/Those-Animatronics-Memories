@@ -54,12 +54,12 @@ The player remains fixed in the room during the nights.
 
 ### Interactive Elements:
 
-* **Computer:** Access to cameras
-* **Left Door:** Can be held manually
-* **Front Glass Panel:** Direct view of a corridor
-* **Desk:** Hiding spot
-* **Lights:** Can be turned off
-* **Photo:** Viewable while hiding under the desk
+* **Computer:** Access to cameras and **Remote Wind-Up System**.
+* **Left Door:** Can be held manually.
+* **Front Glass Panel:** Direct view of a corridor.
+* **Desk:** Hiding spot.
+* **Lights:** Can be turned off.
+* **Photo:** Viewable while hiding under the desk.
 
 ---
 
@@ -67,8 +67,8 @@ The player remains fixed in the room during the nights.
 
 ### 5.1 Fredbear
 
-* Approaches through the front corridor
-* Appears at the glass panel
+* Approaches through the front corridor.
+* Appears at the glass panel.
 * When seen, requires the player to:
   * Turn off the light
   * Hide under the desk
@@ -85,17 +85,37 @@ The lower the sanity, the higher the chance of false apparitions.
 
 ### 5.2 SpringBonnie
 
-* Attacks through the side door
-* Tries to force entry
+* Attacks through the side door.
+* Tries to force entry.
 
 **Core Mechanic:**
 
-* The player must **physically hold the door shut**
+* The player must **physically hold the door shut**.
 
 **Consequences:**
 
-* Holding the door for too long reduces sanity
-* Releasing too early may result in an attack
+* Holding the door for too long reduces sanity.
+* Releasing too early may result in an attack.
+
+---
+
+### 5.3 The Marionette
+
+* Located in the **Prize Corner**.
+* Remains inside a large gift box as long as music plays.
+
+**Core Mechanic: The Music Box**
+
+* The player must constantly monitor the specific Prize Corner camera.
+* A button on the camera interface must be held to **remotely wind up a music box**.
+* The music box unwinds slowly over time, accelerating in later nights.
+
+**Consequences:**
+
+* If the music stops completely, the Marionette leaves the box.
+* Once it escapes, **it cannot be stopped** by doors, lights, or hiding.
+* It results in an inevitable attack after a random delay (instant death/game over).
+* Prioritizing the box forces the player to look away from Fredbear and SpringBonnie, creating tension.
 
 ---
 
@@ -120,6 +140,7 @@ Sanity represents the protagonist's psychological state.
 **During this time:**
 
 * The player is completely vulnerable to outside threats if timed poorly.
+* The Music Box cannot be wound while under the desk.
 
 ---
 
@@ -257,9 +278,9 @@ The player can choose:
 ## 10. NIGHT PROGRESSION
 
 * **Night 1–2:** Introduction and adaptation
-* **Night 3–4:** Sanity drops faster
-* **Night 5–6:** Animatronics more aggressive
-* **Night 7:** Actions are almost simultaneous
+* **Night 3–4:** Sanity drops faster; Marionette box unwinds faster.
+* **Night 5–6:** Animatronics more aggressive.
+* **Night 7:** Actions are almost simultaneous.
 
 ---
 
