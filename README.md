@@ -1,219 +1,218 @@
 # THOSE ANIMATRONICS MEMORIES
 
-## Documento de Design do Jogo (GDD)
+## Game Design Document (GDD)
 
 ---
 
-## 1. VISÃO GERAL
+## 1. OVERVIEW
 
-**Título:** Those Animatronics Memories
-**Gênero:** Terror psicológico / Sobrevivência
-**Estilo:** Gameplay estática (inspirado nos jogos clássicos de FNAF)
-**Plataforma alvo:** PC
-**Motor / Linguagem planejada:** Java (IntelliJ IDEA)
-
----
-
-## 2. PREMISSA NARRATIVA
-
-O jogador assume o papel de um homem comum, contratado como **guarda noturno após o incidente da Mordida de 83**, na antiga Fazbear’s Family Dinner.
-
-A pizzaria está **fechada por investigações policiais**, mas a Fazbear Entertainment pressiona para reabrir o local o mais rápido possível.
-
-O protagonista aceita o trabalho mesmo conhecendo os rumores, pois precisa sustentar e custear o tratamento médico de sua filha, que se encontra em **estado terminal**.
-
-A narrativa não é entregue de forma explícita, mas fragmentada por:
-
-* mensagens do Phone Man
-* ruídos
-* falhas visuais
-* comportamento dos animatrônicos
-* e pelas próprias mecânicas de sanidade
+**Title:** Those Animatronics Memories
+**Genre:** Psychological Horror / Survival
+**Style:** Static Gameplay (inspired by classic FNAF games)
+**Target Platform:** PC
+**Engine:** Clickteam Fusion Developer 25
+***Development Note:** The initial prototype was created in Java (IntelliJ IDEA) using Object-Oriented Programming (OOP).*
 
 ---
 
-## 3. AMBIENTAÇÃO
+## 2. NARRATIVE PREMISE
 
-**Local:** Sala de segurança de uma pizzaria abandonada
+The player assumes the role of an ordinary man hired as a **night guard following the "Bite of '83" incident** at the old Fazbear’s Family Diner.
 
-Elementos visuais e sonoros:
+The pizzeria is **closed for police investigation**, but Fazbear Entertainment is pressuring to reopen the location as quickly as possible.
 
-* iluminação fraca e instável
-* câmeras com falhas e ruídos
-* áreas isoladas com vestígios do incidente
-* silêncio quebrado por passos, rangidos e estática
+The protagonist accepts the job despite knowing the rumors because he needs to support and pay for the medical treatment of his daughter, who is in a **terminal state**.
 
-A sensação geral é de abandono recente, não de ruína antiga.
+The narrative is not delivered explicitly, but fragmented through:
 
----
-
-## 4. SALA DE SEGURANÇA (GAMEPLAY BASE)
-
-O jogador permanece fixo na sala durante as noites.
-
-### Elementos interativos:
-
-* **Computador:** acesso às câmeras
-* **Porta à esquerda:** pode ser segurada manualmente
-* **Painel de vidro frontal:** visão direta de um corredor
-* **Mesa:** esconderijo
-* **Luzes:** podem ser desligadas
-* **Gaveta:** contém a foto da filha
+* Phone Man messages
+* Noises
+* Visual glitches
+* Animatronic behavior
+* The sanity mechanics themselves
 
 ---
 
-## 5. ANIMATRÔNICOS
+## 3. SETTING
+
+**Location:** Security room of an abandoned pizzeria.
+
+Visual and Audio Elements:
+
+* Dim and unstable lighting
+* Cameras with glitches and static
+* Isolated areas with traces of the incident
+* Silence broken by footsteps, creaks, and static
+
+The general feeling is of **recent abandonment**, not ancient ruin.
+
+---
+
+## 4. SECURITY ROOM (CORE GAMEPLAY)
+
+The player remains fixed in the room during the nights.
+
+### Interactive Elements:
+
+* **Computer:** Access to cameras
+* **Left Door:** Can be held manually
+* **Front Glass Panel:** Direct view of a corridor
+* **Desk:** Hiding spot
+* **Lights:** Can be turned off
+* **Photo:** Viewable while hiding under the desk
+
+---
+
+## 5. ANIMATRONICS
 
 ### 5.1 Fredbear
 
-* Aproxima-se pelo corredor frontal
-* Aparece no painel de vidro
-* Ao ser visto, exige que o jogador:
+* Approaches through the front corridor
+* Appears at the glass panel
+* When seen, requires the player to:
+  * Turn off the light
+  * Hide under the desk
 
-  * apague a luz
-  * esconda-se sob a mesa
+Fredbear may:
 
-Fredbear pode:
+* Attack
+* Just observe
+* Or disappear without explanation
 
-* atacar
-* apenas observar
-* ou desaparecer sem explicação
-
-Quanto menor a sanidade, maior a chance de aparições falsas.
+The lower the sanity, the higher the chance of false apparitions.
 
 ---
 
 ### 5.2 SpringBonnie
 
-* Ataca pela porta lateral
-* Tenta forçar a entrada
+* Attacks through the side door
+* Tries to force entry
 
-Mecânica principal:
+**Core Mechanic:**
 
-* o jogador deve **segurar fisicamente a porta**
+* The player must **physically hold the door shut**
 
-Consequências:
+**Consequences:**
 
-* segurar a porta por muito tempo reduz sanidade
-* soltar cedo demais pode resultar em ataque
-
----
-
-## 6. SISTEMA DE SANIDADE MENTAL
-
-A sanidade representa o estado psicológico do protagonista.
-
-### Fontes de perda:
-
-* aparição de animatrônicos
-* barulhos repentinos
-* vultos nas câmeras
-* tempo excessivo segurando a porta
-* tempo excessivo escondido sob a mesa
-
-### Recuperação:
-
-* o jogador deve **parar todas as ações**
-* abrir a gaveta
-* olhar fixamente para a foto da filha
-
-Durante esse tempo:
-
-* o jogador fica completamente vulnerável
+* Holding the door for too long reduces sanity
+* Releasing too early may result in an attack
 
 ---
 
-## 7. COLAPSO MENTAL
+## 6. MENTAL SANITY SYSTEM
 
-Quando a sanidade chega a zero:
+Sanity represents the protagonist's psychological state.
 
-1. comandos atrasam
-2. ações podem ocorrer automaticamente
-3. o jogador não distingue realidade de alucinação
+### Sources of Sanity Loss:
 
-Se o estado persistir:
+* Animatronic apparitions
+* Sudden noises
+* Shadows on the cameras
+* Excessive time holding the door
+* Excessive time hidden under the desk (without focusing on the photo)
 
-* ocorre a morte por colapso psicológico / ataque cardíaco
+### Recovery:
 
----
+* The player must **hide under the desk**.
+* The photo of the daughter is already with the protagonist.
+* While under the desk, the player can view the photo to restore calm.
 
-## 8. SISTEMA DE CICLOS ("VIDAS")
+**During this time:**
 
-O jogo **não utiliza vidas tradicionais** e este sistema **não se aplica à parte do escritório**.
-
-Os **ciclos mentais** estão ligados **exclusivamente aos minigames pós-turno** (objetivos opcionais).
-
-Durante a gameplay principal (12AM–6AM), não há limite de tentativas: falhar resulta apenas no reinício da noite.
-
----
-
-### 8.1 Ciclos por Minigame (Modo Normal)
-
-Cada minigame pós-turno possui **até 3 ciclos mentais próprios**.
-
-Esses ciclos representam a capacidade do protagonista de "forçar-se கொள்ள mentalmente" a continuar tarefas perigosas após um turno exaustivo.
-
-#### Funcionamento:
-
-* Cada morte dentro do minigame consome **1 ciclo**
-* Ao perder os 3 ciclos naquele minigame específico:
-
-  * o protagonista desiste da tarefa
-  * o objetivo é automaticamente ignorado
-  * a noite termina
-  * **Frase-tema:** *Some memories don’t reset.*
+* The player is completely vulnerable to outside threats if timed poorly.
 
 ---
 
-### 8.2 Representação Narrativa das Mortes
+## 7. MENTAL COLLAPSE
 
-As mortes nos minigames **não são mostradas como falhas explícitas**.
+When sanity reaches zero:
 
-Cada colapso segue a lógica onírica:
+1. Commands lag/delay
+2. Actions may occur automatically
+3. The player cannot distinguish reality from hallucination
 
-**Primeiro colapso:**
+If this state persists:
 
-* tela preta
-* respiração pesada
-* corte direto para 6:00 AM
-* protagonista acorda na sala
-
-**Segundo colapso:**
-
-* despertar brusco
-* pequenas falhas visuais no ambiente
-* ruído distante de animatrônico
-
-**Terceiro colapso (desistência):**
-
-* protagonista acorda
-* permanece sentado por alguns segundos
-* levanta lentamente
-* decide não continuar a tarefa
-
-Nenhuma morte é confirmada como real.
+* Death occurs via psychological collapse / heart attack.
 
 ---
 
-### 8.3 Modo Nightmare
+## 8. CYCLE SYSTEM ("LIVES")
 
-O **Modo Nightmare** altera completamente o peso psicológico dos ciclos.
+The game **does not use traditional lives**, and this system **does not apply to the office gameplay**.
 
-Neste modo:
+**Mental Cycles** are linked **exclusively to post-shift minigames** (optional objectives).
 
-* existe um **limite global de 3 ciclos mentais**
-* esses ciclos são compartilhados entre **todos os minigames pós-turno da semana**
-* perder os 3 ciclos impede qualquer tentativa futura de objetivos opcionais
+During the main gameplay (12 AM–6 AM), there is no limit on attempts: failure simply results in restarting the night.
 
-Consequências narrativas:
+---
 
-* o protagonista demonstra sinais claros de esgotamento extremo
-* diálogos do Phone Man tornam-se mais curtos ou ausentes
-* algumas Memories tornam-se inacessíveis
+### 8.1 Cycles per Minigame (Normal Mode)
 
-O Modo Nightmare não altera os finais padrão, mas **dificulta drasticamente** o acesso ao Final Bom e ao Final Secreto.
+Each post-shift minigame has **up to 3 specific mental cycles**.
 
-Texto exibido ao ativar o modo:
+These cycles represent the protagonist's capacity to "mentally force himself" to continue dangerous tasks after an exhausting shift.
+
+**Mechanics:**
+
+* Each death within the minigame consumes **1 cycle**.
+* Upon losing all 3 cycles in that specific minigame:
+  * The protagonist gives up on the task.
+  * The objective is automatically ignored.
+  * The night ends.
+  * **Theme Phrase:** *Some memories don’t reset.*
+
+---
+
+### 8.2 Narrative Representation of Deaths
+
+Deaths in minigames are **not shown as explicit failures**.
+
+Each collapse follows dream logic:
+
+**First Collapse:**
+
+* Black screen
+* Heavy breathing
+* Direct cut to 6:00 AM
+* Protagonist wakes up in the room
+
+**Second Collapse:**
+
+* Abrupt waking
+* Small visual glitches in the environment
+* Distant animatronic noise
+
+**Third Collapse (Resignation):**
+
+* Protagonist wakes up
+* Sits for a few seconds
+* Stands up slowly
+* Decides not to continue the task
+
+No death is confirmed as real.
+
+---
+
+### 8.3 Nightmare Mode
+
+**Nightmare Mode** completely alters the psychological weight of the cycles.
+
+In this mode:
+
+* There is a **global limit of 3 mental cycles**.
+* These cycles are shared across **all post-shift minigames for the entire week**.
+* Losing 3 cycles prevents any future attempts at optional objectives.
+
+**Narrative Consequences:**
+
+* The protagonist shows clear signs of extreme exhaustion.
+* Phone Man dialogues become shorter or absent.
+* Some *Memories* become inaccessible.
+
+Nightmare Mode does not alter the standard endings but **drastically increases the difficulty** of accessing the Good Ending and the Secret Ending.
+
+Text displayed when activating the mode:
 
 > *You won’t wake up the same way twice.*
 
@@ -221,181 +220,181 @@ Texto exibido ao ativar o modo:
 
 ---
 
-## 9. OBJETIVOS SECUNDÁRIOS (PÓS-TURNO)
+## 9. SECONDARY OBJECTIVES (POST-SHIFT)
 
-Ao final de algumas noites, o Phone Man propõe objetivos opcionais.
+At the end of some nights, the Phone Man proposes optional objectives.
 
-Exemplos:
+Examples:
 
-* lavar louça na cozinha
-* reparar caixa de fusíveis
-* limpar o chão
-* recolher objetos espalhados
+* Washing dishes in the kitchen
+* Repairing the fuse box
+* Cleaning the floor
+* Collecting scattered objects
 
-Durante esses objetivos:
+During these objectives:
 
-* animatrônicos continuam ativos
-* a visibilidade é limitada
+* Animatronics remain active
+* Visibility is limited
 
-### Falha em um objetivo:
+### Failure in an objective:
 
-O jogador pode escolher:
+The player can choose:
 
-**Reiniciar:**
+**Restart:**
 
-* objetivo recomeça
-* risco aumentado
-* morte consome um ciclo mental
+* Objective starts over
+* Increased risk
+* Death consumes a mental cycle
 
-**Ignorar:**
+**Ignore:**
 
-* noite termina
-* pagamento reduzido
-* compromete o Final Bom
-
----
-
-## 10. PROGRESSÃO DAS NOITES
-
-* **Noite 1–2:** introdução e adaptação
-* **Noite 3–4:** sanidade cai mais rápido
-* **Noite 5–6:** animatrônicos mais agressivos
-* **Noite 7:** ações quase simultâneas
+* Night ends
+* Reduced payment
+* Compromises the Good Ending
 
 ---
 
-## 11. FINAIS
+## 10. NIGHT PROGRESSION
 
-### Final Ruim
-
-O jogador sobrevive à semana, mas:
-
-* não conclui todos os objetivos
-* ou sofre colapso psicológico
-
-Cena final:
-
-* hospital
-* protagonista ajoelhado ao lado da cama da filha
-* monitor cardíaco zerado
+* **Night 1–2:** Introduction and adaptation
+* **Night 3–4:** Sanity drops faster
+* **Night 5–6:** Animatronics more aggressive
+* **Night 7:** Actions are almost simultaneous
 
 ---
 
-### Final Bom
+## 11. ENDINGS
 
-Requisitos:
+### Bad Ending
 
-* completar todos os objetivos
-* não atingir o terceiro colapso
+The player survives the week, but:
 
-Cena final:
+* Does not complete all objectives
+* Or suffers a psychological collapse
 
-* praça ensolarada
-* protagonista e filha tomando sorvete
-* pizzaria reaberta ao fundo
+**Final Scene:**
 
-Ambiguidade permanece.
-
----
-
-### Final Secreto — *Those Memories That Never Slept*
-
-Este final não depende de dinheiro ou sobrevivência direta, mas da **reconstrução de memórias fragmentadas**.
-
-Durante as noites no escritório e em alguns minigames, o jogador pode encontrar **Memories** — fragmentos jogáveis ou observáveis de lembranças presas ao local.
-
-Essas memórias pertencem principalmente à **Criança Chorona**, vítima da Mordida de 83.
+* Hospital
+* Protagonist kneeling beside his daughter's bed
+* Heart monitor flatlined
 
 ---
 
-## 11.1 SISTEMA DE MEMORIES
+### Good Ending
 
-As Memories não são coletáveis comuns. Elas só aparecem quando:
+**Requirements:**
 
-* a sanidade está acima de um certo limite (clareza mental)
-* o jogador permanece observando algo por tempo demais
-* ou quando decide investigar ao invés de se proteger
+* Complete all objectives
+* Do not reach the third collapse
 
-Cada Memory é apresentada como:
+**Final Scene:**
 
-* um breve minigame
-* uma cena estática distorcida
-* ou um trecho jogável em perspectiva diferente
+* Sunny plaza
+* Protagonist and daughter eating ice cream
+* Reopened pizzeria in the background
 
-Não há interface indicando progresso.
-
----
-
-## 11.2 TIPOS DE MEMORIES
-
-### Memories da Criança Chorona (principais)
-
-* discussões abafadas de adultos
-* o palco visto de baixo
-* medo intenso de Fredbear
-* sensação de abandono
-
-Essas memórias são **emocionais**, não factuais.
+Ambiguity remains.
 
 ---
 
-### Memories dos Animatrônicos (raras)
+### Secret Ending — *Those Memories That Never Slept*
 
-* falhas de movimento
-* comandos sobrepostos
-* sensação de estar preso
+This ending does not depend on money or direct survival, but on the **reconstruction of fragmented memories**.
 
-Não há linguagem humana clara.
+During nights in the office and in some minigames, the player can find **Memories**—playable or observable fragments of memories trapped in the location.
 
----
-
-### Memories de Testemunha (opcional)
-
-* vultos ao longe
-* portas se fechando
-* alguém observando sem agir
-
-Nunca mostram rostos.
+These memories belong primarily to the **Crying Child**, victim of the Bite of '83.
 
 ---
 
-## 11.3 CONDIÇÃO PARA O FINAL SECRETO
+## 11.1 MEMORY SYSTEM
 
-Para desbloquear o Final Secreto, o jogador deve:
+Memories are not common collectibles. They only appear when:
 
-* ativar todas as Memories da Criança Chorona
-* sobreviver até o final da Noite 7
-* não abandonar o local pela terceira quebra psicológica
+* Sanity is above a certain limit (mental clarity)
+* The player remains observing something for too long
+* Or when deciding to investigate instead of protecting oneself
 
-O dinheiro e os objetivos secundários **não interferem**.
+Each Memory is presented as:
+
+* A brief minigame
+* A distorted static scene
+* Or a playable segment in a different perspective
+
+There is no interface indicating progress.
 
 ---
 
-## 11.4 CENA DO FINAL SECRETO
+## 11.2 TYPES OF MEMORIES
 
-Cena única:
+### Crying Child Memories (Main)
 
-* Tela preta
-* Sons distantes da pizzaria em funcionamento
-* Riso infantil ecoando lentamente
+* Muffled adult arguments
+* The stage seen from below
+* Intense fear of Fredbear
+* Feeling of abandonment
 
-A imagem surge:
+These memories are **emotional**, not factual.
 
-* o palco vazio
-* Fredbear desligado
-* SpringBonnie imóvel ao fundo
+---
 
-No centro do palco:
+### Animatronic Memories (Rare)
 
-* a Criança Chorona
-* agora calma
-* olhando diretamente para o jogador
+* Movement glitches
+* Overlapping commands
+* Sensation of being trapped
 
-Ela dá um passo para trás.
+There is no clear human language.
 
-As luzes se apagam.
+---
 
-Última frase na tela:
+### Witness Memories (Optional)
+
+* Shadows in the distance
+* Doors closing
+* Someone watching without acting
+
+Never shows faces.
+
+---
+
+## 11.3 CONDITION FOR THE SECRET ENDING
+
+To unlock the Secret Ending, the player must:
+
+* Activate all Crying Child Memories
+* Survive until the end of Night 7
+* Not abandon the location via the third psychological break
+
+Money and secondary objectives **do not interfere**.
+
+---
+
+## 11.4 SECRET ENDING SCENE
+
+Unique Scene:
+
+* Black screen
+* Distant sounds of the operating pizzeria
+* Childish laughter echoing slowly
+
+The image appears:
+
+* The empty stage
+* Fredbear powered down
+* SpringBonnie motionless in the background
+
+In the center of the stage:
+
+* The Crying Child
+* Now calm
+* Looking directly at the player
+
+He takes a step back.
+
+The lights go out.
+
+Last phrase on the screen:
 
 > *Some memories don’t reset.*
 > *Some memories finally rest.*
@@ -404,10 +403,10 @@ As luzes se apagam.
 
 ---
 
-## 12. TOM E IDENTIDADE
+## 12. TONE AND IDENTITY
 
-* terror psicológico acima de jumpscares
-* foco em culpa, memória e negação
-* atmosfera opressiva e silenciosa
+* Psychological horror over jumpscares
+* Focus on guilt, memory, and denial
+* Oppressive and silent atmosphere
 
-Este jogo não trata monstros como vilões, mas como lembranças que se recusam a desaparecer.
+This game does not treat monsters as villains, but as memories that refuse to disappear.
